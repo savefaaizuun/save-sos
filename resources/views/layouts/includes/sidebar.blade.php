@@ -32,6 +32,9 @@
                                 <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span> <span class="label label-primary pull-right">NEW</span></a>
                             </li>
                             <li>
+                                <a href="{{ url('admin/siswa') }}"><i class="fa fa-diamond"></i> <span class="nav-label">Siswa</span></a>
+                            </li>
+                            <li>
                                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li><a href="graph_flot.html">Flot Charts</a></li>

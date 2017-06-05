@@ -29,7 +29,15 @@ Route::group(['admin' => ['siswa']], function() {
     Route::get('admin/siswa/view', 'SiswaController@view');
     Route::post('admin/siswa/update', 'SiswaController@update');
     Route::post('admin/siswa/delete', 'SiswaController@delete');
-	
+ });
+
+Route::group(['admin' => ['guru']], function() {
+    Route::get('admin/guru', 'GuruController@index');
+    Route::post('admin/guru', 'GuruController@add');
+    Route::get('admin/guru/view', 'GuruController@view');
+    Route::post('admin/guru/update', 'GuruController@update');
+    Route::post('admin/guru/delete', 'GuruController@delete');
+    
  });
 // // 
 //     Route::get('siswa', 'SiswaController@index');

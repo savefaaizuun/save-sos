@@ -17,7 +17,6 @@ SISFO | {{$atribut['title']}}
 		</li>
 	</ol>
 </div>
-
 <div class="col-lg-2">
 	<div class="box-btn-add" style="margin-top: 30px;">
 		<button class="btn btn-outline btn-info  dim" data-toggle="modal" data-target="#addModal" type="button"><i class="fa fa-plus"></i> Tambah</button>
@@ -57,11 +56,11 @@ SISFO | {{$atribut['title']}}
 <thead>
 	<tr>
 		<th>NO</th>
-		<th>NIS</th>
+		<th>NUPTK</th>
 		<th>Nama</th>
 		<th>Gender</th>
-		<th>Tempat, Tanggal Lahir</th>
-		<th>Actions</th>
+		<th>Username</th>
+		<th>Aksi</th>
 	</tr>
 </thead>
 <tbody>
@@ -69,10 +68,10 @@ SISFO | {{$atribut['title']}}
 	@foreach($data as $x)
 	<tr>
 		<td><?php echo $no++;?></td>
-		<td>{{$x -> nis}}</td>
-		<td>{{$x -> nama}}</td>
+		<td>{{$x -> nuptk}}</td>
+		<td>{{$x -> nama_guru}}</td>
 		<td>{{($x -> gender == 'L' ? 'Laki-laki' : 'Perempuan')}}</td>
-		<td>{{$x -> tempat_lahir . ', ' .$x -> tgl_lahir}}</td>
+		<td>{{$x -> username}}</td>
 		<td>
 			<button class="btn btn-info btn-sm dim" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$x -> id}}')"><span class="glyphicon glyphicon-eye-open"> View</button>
 				<button class="btn btn-warning btn-sm dim" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$x -> id}}')"><span class="glyphicon glyphicon-edit dim"> Edit</button>
@@ -84,16 +83,16 @@ SISFO | {{$atribut['title']}}
 		<tfoot>
 		<tr>
 			<th>NO</th>
-			<th>NIS</th>
+			<th>NUPTK</th>
 			<th>Nama</th>
 			<th>Gender</th>
-			<th>Tempat, Tanggal Lahir</th>
-			<th>Actions</th>
+			<th>Username</th>
+			<th>Aksi</th>
 		</tr>
 		</tfoot>
 	</table>
-	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/siswa/view')}}">
-    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/siswa/delete')}}">
+	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/guru/view')}}">
+    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/guru/delete')}}">
 </div>
 <!-- /.box-body -->
 @endsection
@@ -107,28 +106,32 @@ SISFO | {{$atribut['title']}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Tambah {{$atribut['title']}}</h4>
+				<h4 class="modal-title">Tambah Data {{$atribut['title']}}</h4>
 			</div>
-             <div class="modal-body">				
-					<form role="form" action="{{ url('admin/siswa') }}" method="post">
+			<div class="modal-body">				
+					<form role="form" action="{{ url('admin/guru') }}" method="post">
 					{{ csrf_field() }}
-						<div class="form-group">
-							<label for="nis">NIS:</label>
-							<input type="text" class="form-control" id="nis" name="nis">
-						</div>
-						<div class="form-group">
-							<label for="nama">Nama:</label>
-							<input type="text" class="form-control" id="nama" name="nama">
-						</div>
-						<div class="form-group">
-							<label for="gender">Gender</label> 
-							<input type="text" class="form-control" id="gender" name="gender">
-						</div>
-					
+							<div class="form-group">
+								<label>NUPTK</label> 
+								<input type="text" class="form-control" id="nuptk" name="nuptk">
+							</div>
+							<div class="form-group">
+								<label>Nama</label> 
+								<input type="text" class="form-control" id="nama_guru" name="nama_guru">
+							</div>
+							<div class="form-group">
+								<label>Gender</label> 
+								<input type="text" class="form-control" id="gender" name="gender">
+							</div>
+							<div class="form-group">
+								<label>Username</label> 
+								<input type="text" class="form-control" id="username" name="username">
+							</div>
+						
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-info pull-right m-t-n-xs" type="submit"><i class="fa fa-save"></i><strong> Simpan</strong></button>
+                <button class="btn btn-info pull-right m-t-n-xs" type="submit"><i class="fa fa-save"></i><strong> Update</strong></button>
              </div>
              </form>
 		</div>
@@ -144,16 +147,17 @@ SISFO | {{$atribut['title']}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">View</h4>
+				<h4 class="modal-title">View Data {{$atribut['title']}}</h4>
 			</div>
 			<div class="modal-body">
-				<p><b>NIS : </b><span id="view_nis" class="text-success"></span></p>
+				<p><b>NUPTK : </b><span id="view_nuptk" class="text-success"></span></p>
 				<p><b>Nama : </b><span id="view_nama" class="text-success"></span></p>
 				<p><b>Gender : </b><span id="view_gender" class="text-success"></span></p>
+				<p><b>Username : </b><span id="view_username" class="text-success"></span></p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"></button>
-			</div>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            </div>
 		</div>
 		
 	</div>
@@ -170,11 +174,11 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">Edit</h4>
 			</div>
 			<div class="modal-body">
-				<form action="{{ url('admin/siswa/update') }}" method="post">
+				<form action="{{ url('admin/guru/update') }}" method="post">
 					{{ csrf_field() }}
 						<div class="form-group">
-							<label for="edit_nis">NIS:</label>
-							<input type="text" class="form-control" id="edit_nis" name="edit_nis">
+							<label for="edit_nuptk">NUPTK:</label>
+							<input type="text" class="form-control" id="edit_nuptk" name="edit_nuptk">
 						</div>
 						<div class="form-group">
 							<label for="edit_nama">Nama:</label>
@@ -191,6 +195,7 @@ SISFO | {{$atribut['title']}}
                 <button class="btn btn-info pull-right m-t-n-xs" type="submit"><i class="fa fa-save"></i><strong> Update</strong></button>
              </div>
              </form>
+			
 		</div>
 		
 	</div>
@@ -206,7 +211,7 @@ SISFO | {{$atribut['title']}}
                     data: {"id":id},
                     success: function(result){
                     //console.log(result);
-                    $("#view_nis").text(result.nis);
+                    $("#view_nuptk").text(result.nuptk);
                     $("#view_nama").text(result.gender);
                     $("#view_gender").text(result.gender);
                     }
@@ -223,8 +228,8 @@ SISFO | {{$atribut['title']}}
                     success: function(result){
                     console.log(result);
                     $("#edit_id").val(result.id);
-                    $("#edit_nis").val(result.nis);
-                    $("#edit_nama").val(result.nama);
+                    $("#edit_nuptk").val(result.nuptk);
+                    $("#edit_nama").val(result.nama_guru);
                     $("#edit_gender").val(result.gender);
                     }
                     });

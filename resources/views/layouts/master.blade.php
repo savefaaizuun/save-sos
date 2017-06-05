@@ -18,6 +18,12 @@
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        @if ($message = Session::get('success'))
+                                          <div class="alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>{{ $message }}</strong>
+                                          </div>
+                                        @endif
                                         <div class="ibox float-e-margins">
                                             @yield('content-header-sub')
                                         
@@ -69,59 +75,7 @@
                     });
                     });
                     </script>
-                    <script type="text/javascript">
-                    function fun_view(id)
-                    {
-                    var view_url = $("#hidden_view").val();
-                    $.ajax({
-                    url: view_url,
-                    type:"GET",
-                    data: {"id":id},
-                    success: function(result){
-                    //console.log(result);
-                    $("#view_nis").text(result.nis);
-                    $("#view_nama").text(result.gender);
-                    $("#view_gender").text(result.gender);
-                    }
-                    });
-                    }
-                    function fun_edit(id)
-                    {
-                    var view_url = $("#hidden_view").val();
-                    //console.log(view_url);
-                    $.ajax({
-                    url: view_url,
-                    type:"GET",
-                    data: {"id":id},
-                    success: function(result){
-                    //console.log(result);
-                    $("#edit_id").val(result.id);
-                    $("#edit_nis").val(result.nis);
-                    $("#edit_nama").val(result.nama);
-                    $("#edit_gender").val(result.gender);
-                    }
-                    });
-                    }
-                    function fun_delete(id)
-                    {
-                    var conf = confirm("Are you sure want to delete??");
-                    if(conf){
-                    var delete_url = $("#hidden_delete").val();
-                    $.ajax({
-                    url: delete_url,
-                    type:"POST",
-                    data: {"id":id,_token: "{{ csrf_token() }}"},
-                    success: function(response){
-                    alert(response);
-                    location.reload();
-                    }
-                    });
-                    }
-                    else{
-                    return false;
-                    }
-                    }
-                    </script>
+                    
                     <style>
                     body.DTTT_Print {
                     background: #fff;
