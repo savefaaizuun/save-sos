@@ -104,7 +104,7 @@ SISFO | {{$atribut['title']}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Add Record</h4>
+				<h4 class="modal-title">Tambah Data Siswa</h4>
 			</div>
 			<div class="modal-body">
 				<form action="{{ url('admin/siswa') }}" method="post">
@@ -121,13 +121,12 @@ SISFO | {{$atribut['title']}}
 						<label for="gender">Gender:</label>
 						<input type="text" class="form-control" id="gender" name="gender">
 					</div>
-					
-					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+              </div>
 		</div>
 		
 	</div>
