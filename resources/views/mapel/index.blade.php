@@ -56,10 +56,8 @@ SISFO | {{$atribut['title']}}
 <thead>
 	<tr>
 		<th>NO</th>
-		<th>NUPTK</th>
-		<th>Nama</th>
-		<th>Gender</th>
-		<th>Username</th>
+		<th>Kode Mata Pelajaran</th>
+		<th>Mata Pelajaran</th>
 		<th>Aksi</th>
 	</tr>
 </thead>
@@ -68,12 +66,10 @@ SISFO | {{$atribut['title']}}
 	@foreach($data as $x)
 	<tr>
 		<td><?php echo $no++;?></td>
-		<td>{{$x -> nuptk}}</td>
-		<td>{{$x -> nama_guru}}</td>
-		<td>{{($x -> gender == 'L' ? 'Laki-laki' : 'Perempuan')}}</td>
-		<td>{{$x -> username}}</td>
+		<td>{{$x -> kode_mapel}}</td>
+		<td>{{$x -> nama_mapel}}</td>
 		<td>
-			<button class="btn btn-info btn-sm dim" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$x -> id}}')"><span class="glyphicon glyphicon-eye-open"> View</button>
+			<button class="btn btn-info btn-sm dim" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$x -> kode_mapel}}')"><span class="glyphicon glyphicon-eye-open"> View</button>
 				<button class="btn btn-warning btn-sm dim" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$x -> id}}')"><span class="glyphicon glyphicon-edit dim"> Edit</button>
 					<button class="btn btn-danger btn-sm dim" onclick="fun_delete('{{$x -> id}}')"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 				</td>
@@ -83,16 +79,14 @@ SISFO | {{$atribut['title']}}
 		<tfoot>
 		<tr>
 			<th>NO</th>
-			<th>NUPTK</th>
-			<th>Nama</th>
-			<th>Gender</th>
-			<th>Username</th>
+			<th>Kode Mata Pelajaran</th>
+			<th>Mata Pelajaran</th>
 			<th>Aksi</th>
 		</tr>
 		</tfoot>
 	</table>
-	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/guru/view')}}">
-    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/guru/delete')}}">
+	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/mapel/view')}}">
+    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/mapel/delete')}}">
 </div>
 <!-- /.box-body -->
 @endsection
@@ -109,29 +103,21 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">Tambah Data {{$atribut['title']}}</h4>
 			</div>
 			<div class="modal-body">				
-					<form role="form" action="{{ url('admin/guru') }}" method="post">
+					<form role="form" action="{{ url('admin/mapel') }}" method="post">
 					{{ csrf_field() }}
 							<div class="form-group">
-								<label>NUPTK</label> 
-								<input type="text" class="form-control" id="nuptk" name="nuptk">
+								<label>Kode Mata Pelajaran</label> 
+								<input type="text" class="form-control" id="kode_mapel" name="kode_mapel">
 							</div>
 							<div class="form-group">
-								<label>Nama</label> 
-								<input type="text" class="form-control" id="nama_guru" name="nama_guru">
-							</div>
-							<div class="form-group">
-								<label>Gender</label> 
-								<input type="text" class="form-control" id="gender" name="gender">
-							</div>
-							<div class="form-group">
-								<label>Username</label> 
-								<input type="text" class="form-control" id="username" name="username">
+								<label>Nama Mata Pelajaran</label> 
+								<input type="text" class="form-control" id="nama_mapel" name="nama_mapel">
 							</div>
 						
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button class="btn btn-info pull-right m-t-n-xs" type="submit"><i class="fa fa-save"></i><strong> Update</strong></button>
+                <button class="btn btn-info pull-right m-t-n-xs" type="submit"><i class="fa fa-save"></i><strong> Simpan</strong></button>
              </div>
              </form>
 		</div>
@@ -150,10 +136,8 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">View Data {{$atribut['title']}}</h4>
 			</div>
 			<div class="modal-body">
-				<p><b>NUPTK : </b><span id="view_nuptk" class="text-success"></span></p>
-				<p><b>Nama : </b><span id="view_nama" class="text-success"></span></p>
-				<p><b>Gender : </b><span id="view_gender" class="text-success"></span></p>
-				<p><b>Username : </b><span id="view_username" class="text-success"></span></p>
+				<p><b>Kode Mapel : </b><span id="view_kode_mapel" class="text-success"></span></p>
+				<p><b>Nama Mapel : </b><span id="view_nama" class="text-success"></span></p>
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -174,20 +158,17 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">Edit</h4>
 			</div>
 			<div class="modal-body">
-				<form action="{{ url('admin/guru/update') }}" method="post">
+				<form action="{{ url('admin/mapel/update') }}" method="post">
 					{{ csrf_field() }}
 						<div class="form-group">
-							<label for="edit_nuptk">NUPTK:</label>
-							<input type="text" class="form-control" id="edit_nuptk" name="edit_nuptk">
+							<label for="kode_mapel">Kode Mata Pelajaran:</label>
+							<input type="text" class="form-control" id="edit_kode_mapel" name="edit_kode_mapel">
 						</div>
 						<div class="form-group">
-							<label for="edit_nama">Nama:</label>
-							<input type="text" class="form-control" id="edit_nama" name="edit_nama">
+							<label for="nama_mapel">Nama Mata Pelajaran:</label>
+							<input type="text" class="form-control" id="edit_nama_mapel" name="edit_nama_mapel">
 						</div>
-						<div class="form-group">
-							<label for="edit_gender">Gender:</label>
-							<input type="text" class="form-control" id="edit_gender" name="edit_gender">
-						</div>
+						
 					<input type="hidden" id="edit_id" name="edit_id">
 			</div>
 			<div class="modal-footer">
@@ -202,6 +183,7 @@ SISFO | {{$atribut['title']}}
 </div>
 <!-- Edit code ends -->
 <script type="text/javascript">
+
                     function fun_view(id)
                     {
                     var view_url = $("#hidden_view").val();
@@ -211,9 +193,8 @@ SISFO | {{$atribut['title']}}
                     data: {"id":id},
                     success: function(result){
                     //console.log(result);
-                    $("#view_nuptk").text(result.nuptk);
-                    $("#view_nama").text(result.gender);
-                    $("#view_gender").text(result.gender);
+                    $("#view_kode_mapel").text(result.kode_mapel);
+                    $("#view_nama_mapel").text(result.nama_mapel);
                     }
                     });
                     }
@@ -229,9 +210,8 @@ SISFO | {{$atribut['title']}}
                     success: function(result){
                     console.log(result);
                     $("#edit_id").val(result.id);
-                    $("#edit_nuptk").val(result.nuptk);
-                    $("#edit_nama").val(result.nama_guru);
-                    $("#edit_gender").val(result.gender);
+                    $("#edit_kode_mapel").val(result.kode_mapel);
+                    $("#edit_nama_mapel").val(result.nama_mapel);
                     }
                     });
                     }
