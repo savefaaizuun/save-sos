@@ -75,6 +75,15 @@ Route::group(['admin' => ['konfigTahunAkademik']], function() {
     Route::post('admin/konfigTahunAkademik/delete', 'KonfigTahunAkademikController@delete');
     
  });
+
+Route::group(['admin' => ['kurikulum']], function() {
+    Route::get('admin/kurikulum', 'KurikulumController@index');
+    Route::post('admin/kurikulum', 'KurikulumController@add');
+    Route::get('admin/kurikulum/view', 'KurikulumController@view');
+    Route::post('admin/kurikulum/update', 'KurikulumController@update');
+    Route::post('admin/kurikulum/delete', 'KurikulumController@delete');
+    
+ });
 // // 
 //     Route::get('siswa', 'SiswaController@index');
 //     Route::post('siswa', 'SiswaController@add');
