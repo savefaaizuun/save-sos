@@ -57,6 +57,24 @@ Route::group(['admin' => ['ruang']], function() {
     Route::post('admin/ruang/delete', 'RuangController@delete');
     
  });
+
+Route::group(['admin' => ['prodi']], function() {
+    Route::get('admin/prodi', 'ProdiController@index');
+    Route::post('admin/prodi', 'ProdiController@add');
+    Route::get('admin/prodi/view', 'ProdiController@view');
+    Route::post('admin/prodi/update', 'ProdiController@update');
+    Route::post('admin/prodi/delete', 'ProdiController@delete');
+    
+ });
+
+Route::group(['admin' => ['konfigTahunAkademik']], function() {
+    Route::get('admin/konfigTahunAkademik', 'KonfigTahunAkademikController@index');
+    Route::post('admin/konfigTahunAkademik', 'KonfigTahunAkademikController@add');
+    Route::get('admin/konfigTahunAkademik/view', 'KonfigTahunAkademikController@view');
+    Route::post('admin/konfigTahunAkademik/update', 'KonfigTahunAkademikController@update');
+    Route::post('admin/konfigTahunAkademik/delete', 'KonfigTahunAkademikController@delete');
+    
+ });
 // // 
 //     Route::get('siswa', 'SiswaController@index');
 //     Route::post('siswa', 'SiswaController@add');
