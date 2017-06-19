@@ -84,6 +84,24 @@ Route::group(['admin' => ['kurikulum']], function() {
     Route::post('admin/kurikulum/delete', 'KurikulumController@delete');
     
  });
+
+Route::group(['admin' => ['rombel']], function() {
+    Route::get('admin/rombel', 'rombelController@index');
+    Route::post('admin/rombel', 'rombelController@add');
+    Route::get('admin/rombel/view', 'rombelController@view');
+    Route::post('admin/rombel/update', 'rombelController@update');
+    Route::post('admin/rombel/delete', 'rombelController@delete');
+    
+ });
+
+Route::group(['admin' => ['jadwal']], function() {
+    Route::get('admin/jadwal', 'jadwalController@index');
+    Route::post('admin/jadwal', 'jadwalController@add');
+    Route::get('admin/jadwal/view', 'jadwalController@view');
+    Route::post('admin/jadwal/update', 'jadwalController@update');
+    Route::post('admin/jadwal/delete', 'jadwalController@delete');
+    
+ });
 // // 
 //     Route::get('siswa', 'SiswaController@index');
 //     Route::post('siswa', 'SiswaController@add');

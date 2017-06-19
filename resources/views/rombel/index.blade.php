@@ -55,9 +55,10 @@ SISFO | {{$atribut['title']}}
 <table id="example1" class="table table-bordered table-hover">
 <thead>
 	<tr>
-		<th>NO</th>
-		<th>Nama Kurikulum</th>
-		<th>Status</th>
+		<th>No</th>
+		<th>Nama Rombel</th>
+		<th>Prodi</th>
+		<th>Kelas</th>
 		<th>Aksi</th>
 	</tr>
 </thead>
@@ -66,8 +67,9 @@ SISFO | {{$atribut['title']}}
 	@foreach($data as $x)
 	<tr>
 		<td><?php echo $no++;?></td>
-		<td>{{$x -> nama_kurikulum}}</td>
-		<td><?php echo ($x -> is_aktif == 1) ? '<button type="button" class="btn btn-rounded btn-success btn-xs"> Aktif </button>' : '<button type="button" class="btn btn-rounded btn-danger  btn-xs"> Tidak Aktif </button>'; ?></td>
+		<td>{{$x -> nama_rombel}}</td>
+		<td>{{$x -> nama_prodi}}</td>
+		<td>{{$x -> kelas}}</td>
 		<td>
 			<button class="btn btn-info btn-sm dim" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$x -> id}}')"><span class="glyphicon glyphicon-eye-open"> View</button>
 				<button class="btn btn-warning btn-sm dim" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$x -> id}}')"><span class="glyphicon glyphicon-edit dim"> Edit</button>
@@ -79,14 +81,15 @@ SISFO | {{$atribut['title']}}
 		<tfoot>
 		<tr>
 			<th>NO</th>
-			<th>Nama Kurikulum</th>
-			<th>Status</th>
+			<th>Nama Rombel</th>
+			<th>Prodi</th>
+			<th>Kelas</th>
 			<th>Aksi</th>
 		</tr>
 		</tfoot>
 	</table>
-	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/kurikulum/view')}}">
-    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/kurikulum/delete')}}">
+	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/rombel/view')}}">
+    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/rombel/delete')}}">
 </div>
 <!-- /.box-body -->
 @endsection
@@ -100,21 +103,31 @@ SISFO | {{$atribut['title']}}
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Tambah {{$atribut['title']}}</h4>
+				<h4 class="modal-title">Tambah Data {{$atribut['title']}}</h4>
 			</div>
 			<div class="modal-body">				
-					<form role="form" action="{{ url('admin/kurikulum') }}" method="post">
+					<form role="form" action="{{ url('admin/rombel') }}" method="post">
 					{{ csrf_field() }}
 							<div class="form-group">
-								<label>Nama Kurikulum</label> 
-								<input type="text" class="form-control" id="nama_kurikulum" name="nama_kurikulum">
+								<label>Nama Rombel</label> 
+								<input type="text" class="form-control" id="nama_rombel" name="nama_rombel">
 							</div>
 							<div class="form-group">
-								<label>Status</label> 
-								<select class="form-control" id="is_aktif" name="is_aktif">
-                                        <option>-- Status --</option>
-                                        <option value="1">Aktif</option>
-                                        <option value="0">Tidak Aktif</option>
+								<label>Prodi</label> 
+								<select class="form-control" id="kode_prodi" name="kode_prodi" >
+								<option>-- Pilih Prodi --</option>
+								@foreach($list_prodi as $prodi)
+							      <option value="{{$prodi->kode_prodi}}">{{$prodi->nama_prodi}}</option>
+							    @endforeach
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Kelas</label> 
+								<select class="form-control" id="kelas" name="kelas">
+                                        <option>-- Pilih Kelas --</option>
+                                        <option value="1">Kelas 1</option>
+                                        <option value="2">Kelas 2</option>
+                                        <option value="3">Kelas 3</option>
                                 </select>
 							</div>
 						
@@ -140,8 +153,9 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">View Data {{$atribut['title']}}</h4>
 			</div>
 			<div class="modal-body">
-				<p><b>Nama Kurikulum : </b><span id="view_nama_kurikulum" class="text-success"></span></p>
-				<p><b>Status : </b><span id="view_is_aktif" class="text-success"></span></p>
+				<p><b>Nama Rombel : </b><span id="view_nama_rombel" class="text-success"></span></p>
+				<p><b>Prodi : </b><span id="view_nama_prodi" class="text-success"></span></p>
+				<p><b>Kelas : </b><span id="view_kelas" class="text-success"></span></p>
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -162,18 +176,28 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">Edit</h4>
 			</div>
 			<div class="modal-body">
-				<form action="{{ url('admin/kurikulum/update') }}" method="post">
+				<form action="{{ url('admin/rombel/update') }}" method="post">
 					{{ csrf_field() }}
 						<div class="form-group">
-							<label for="nama_kurikulum">Nama Kurikulum:</label>
-							<input type="text" class="form-control" id="edit_nama_kurikulum" name="edit_nama_kurikulum">
+							<label for="kode_prodi">Nama Rombel:</label>
+							<input type="text" class="form-control" id="edit_nama_rombel" name="edit_nama_rombel">
 						</div>
 						<div class="form-group">
-							<label for="is_aktif">Status:</label>
-							<select class="form-control" id="edit_is_aktif" name="edit_is_aktif">
-                                <option>-- Status --</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Tidak Aktif</option>
+							<label for="is_aktif">Prodi:</label>
+							<select class="form-control" id="edit_kode_prodi" name="edit_kode_prodi">
+                                <option>-- Pilih Prodi --</option>
+								@foreach($list_prodi as $prodi)
+							      <option value="{{$prodi->kode_prodi}}">{{$prodi->nama_prodi}}</option>
+							    @endforeach
+                            </select>
+						</div>
+						<div class="form-group">
+							<label for="is_aktif">Kelas:</label>
+							<select class="form-control" id="edit_kelas" name="edit_kelas">
+                                <option>-- Pilih Kelas --</option>
+                                <option value="1">Kelas 1</option>
+                                <option value="2">Kelas 2</option>
+                                <option value="3">Kelas 3</option>
                             </select>
 						</div>
 						
@@ -201,8 +225,8 @@ SISFO | {{$atribut['title']}}
                     data: {"id":id},
                     success: function(result){
                     //console.log(result);
-                    $("#view_nama_kurikulum").text(result.nama_kurikulum);
-                    $("#view_is_aktif").text(result.is_aktif);
+                    $("#view_kode_prodi").text(result.kode_prodi);
+                    $("#view_nama_prodi").text(result.nama_prodi);
                     }
                     });
                     }
@@ -218,8 +242,10 @@ SISFO | {{$atribut['title']}}
                     success: function(result){
                     console.log(result);
                     $("#edit_id").val(result.id);
-                    $("#edit_nama_kurikulum").val(result.nama_kurikulum);
-                    $("#edit_is_aktif").val(result.is_aktif);
+                    $("#edit_nama_rombel").val(result.kode_prodi);
+                    $("#edit_kode_prodi").val(result.kode_prodi);
+                    $("#edit_nama_prodi").val(result.nama_prodi);
+                    $("#edit_kelas").val(result.kelas);
                     }
                     });
                     }
