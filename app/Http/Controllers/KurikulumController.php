@@ -3,6 +3,9 @@
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
     use App\Kurikulum;
+    use App\Prodi;
+    use App\Mapel;
+    use App\RincianKurikulum;
     class KurikulumController extends Controller
     {
         /*
@@ -69,5 +72,41 @@
             else
                 echo "There was a problem. Please try again later.";
         }
-    }
+
+        /*
+         * Display all data
+         */
+        public function rincianKurikulum($id)
+        {   
+            $atribut = array("title"=>"Data Kurikulum");
+            $rincian = Kurikulum::find($id);
+            $kurikulum = Kurikulum::all();
+            $prodi = Prodi::all();
+            $mapel = Mapel::all();
+            $rincian = RincianKurikulum::all();
+            return view('kurikulum.rincian', [  'data' => $rincian, 
+                                                'atribut' => $atribut, 
+                                                'list_prodi' => $prodi, 
+                                                'list_kurikulum' => $kurikulum,
+                                                'list_mapel' => $mapel,
+                                                'list_rincian' => $rincian]);
+        }
+
+        /*
+         * Add Siswa data
+         */
+        public function addRincian(Request $request)
+        {
+            //dd($request);die;
+            $data = new RincianKurikulum;
+            $data -> id_kurikulum = $request -> id_kurikulum;
+            $data -> kode_mapel = $request -> mapel;
+            $data -> kode_prodi = $request -> prodi;
+            $data -> kelas = $request -> kelas;
+            $data -> save();
+            return back()
+                    ->with('success','Record Added successfully.');
+        }
+}
+    
 ?>
