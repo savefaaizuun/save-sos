@@ -79,9 +79,11 @@ Route::group(['admin' => ['konfigTahunAkademik']], function() {
 Route::group(['admin' => ['kurikulum']], function() {
     Route::get('admin/kurikulum', 'KurikulumController@index');
     Route::post('admin/kurikulum', 'KurikulumController@add');
+    Route::post('admin/kurikulum/rincian', 'KurikulumController@addRincian');
     Route::get('admin/kurikulum/view', 'KurikulumController@view');
     Route::post('admin/kurikulum/update', 'KurikulumController@update');
     Route::post('admin/kurikulum/delete', 'KurikulumController@delete');
+    Route::get('admin/kurikulum/rincian/{id}', 'KurikulumController@rincianKurikulum');
     
  });
 
@@ -95,11 +97,12 @@ Route::group(['admin' => ['rombel']], function() {
  });
 
 Route::group(['admin' => ['jadwal']], function() {
-    Route::get('admin/jadwal', 'jadwalController@index');
-    Route::post('admin/jadwal', 'jadwalController@add');
-    Route::get('admin/jadwal/view', 'jadwalController@view');
-    Route::post('admin/jadwal/update', 'jadwalController@update');
-    Route::post('admin/jadwal/delete', 'jadwalController@delete');
+    Route::get('admin/jadwal', 'JadwalController@index');
+    Route::post('admin/jadwal', 'JadwalController@add');
+    Route::get('admin/jadwal/view', 'JadwalController@view');
+    Route::post('admin/jadwal/update', 'JadwalController@update');
+    Route::post('admin/jadwal/delete', 'JadwalController@delete');
+    Route::get('admin/jadwal/get_rombel', 'JadwalController@get_rombel');
     
  });
 // // 

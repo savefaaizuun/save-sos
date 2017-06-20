@@ -75,6 +75,8 @@
                     });
                     });
                     </script>
+
+                    @yield('script')
                     
                     <style>
                     body.DTTT_Print {

@@ -25,7 +25,7 @@ SISFO | {{$atribut['title']}}
 @endsection
 @section('content-header-sub')
 <div class="ibox-title">
-	<h5>{{$atribut['title']}}</h5>
+	<h5>Filter Data Jadwal</h5>
 	<div class="ibox-tools">
 		
 		<a class="collapse-link">
@@ -52,43 +52,53 @@ SISFO | {{$atribut['title']}}
 @section('content')
 
 <div class="box-body">
-<table id="example1" class="table table-bordered table-hover">
-<thead>
-	<tr>
-		<th>NO</th>
-		<th>Nama Kurikulum</th>
-		<th>Status</th>
-		<th>Aksi</th>
-	</tr>
-</thead>
-<tbody>
-	<?php $no=1; ?>
-	@foreach($data as $x)
-	<tr>
-		<td><?php echo $no++;?></td>
-		<td>{{$x -> nama_kurikulum}}</td>
-		<td><?php echo ($x -> is_aktif == 1) ? '<button type="button" class="btn btn-rounded btn-success btn-xs"> Aktif </button>' : '<button type="button" class="btn btn-rounded btn-danger  btn-xs"> Tidak Aktif </button>'; ?></td>
-		<td>
-			<button class="btn btn-info btn-sm dim" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$x -> id}}')"><span class="glyphicon glyphicon-eye-open"> View</button>
-			<button class="btn btn-warning btn-sm dim" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$x -> id}}')"><span class="glyphicon glyphicon-edit dim"> Edit</button>
-			<button class="btn btn-danger btn-sm dim" onclick="fun_delete('{{$x -> id}}')"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-			<button class="btn btn-primary btn-sm dim" onclick="window.location.href='{{url('admin/kurikulum/rincian/'.$x -> id)}}'"><span class="glyphicon glyphicon-list"> Rincian</button>
-			
+{{-- <table id="filter-jadwal" class="table table-bordered table-hover"> --}}
+
+	<form action="http://localhost/siakad/index.php/jadwal/cetak_jadwal" method="post" accept-charset="utf-8">
+	<table class="table table-bordered">
+		<tbody>
+			<tr>
+				<td>Prodi</td>
+				<td>
+					<select name="kode_prodi" class="form-control" id="kode_prodi">
+						<option>-- Pilih Prodi --</option>
+							@foreach($list_prodi as $prodi)
+							<option value="{{$prodi->kode_prodi}}">{{$prodi->nama_prodi}}</option>
+							@endforeach
+					</select>
 				</td>
 			</tr>
-			@endforeach
+			<tr>
+				<td>KELAS</td>
+				<td>
+					<select name="kelas" id="kelas" class="form-control">
+						<option value="">-- Pilih Kelas --</option>
+						<option value="1">Kelas 1</option>
+						<option value="2">Kelas 2</option>
+						<option value="3">Kelas 3</option>                        
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>ROMBEL</td>
+				<td>
+					<select name="rombel" id="rombel" class="form-control">
+						<option value="">-- Pilih Rombel --</option>                      
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+					<i class="fa fa-cogs" aria-hidden="true"></i> Generate Jadwal
+				</button>
+				<button type="submit" name="export_jadwal" class="btn btn-danger btn-sm"><i class="fa fa-print" aria-hidden="true"></i> Cetak PDF</button>
+				</td>
+			</tr>
 		</tbody>
-		<tfoot>
-		<tr>
-			<th>NO</th>
-			<th>Nama Kurikulum</th>
-			<th>Status</th>
-			<th>Aksi</th>
-		</tr>
-		</tfoot>
 	</table>
-	<input type="hidden" name="hidden_view" id="hidden_view" value="{{url('admin/kurikulum/view')}}">
-    <input type="hidden" name="hidden_delete" id="hidden_delete" value="{{url('admin/kurikulum/delete')}}">
+    </form>
+
 </div>
 <!-- /.box-body -->
 @endsection
@@ -191,8 +201,36 @@ SISFO | {{$atribut['title']}}
 		
 	</div>
 </div>
+
+@endsection
 <!-- Edit code ends -->
+@section('script')
+
 <script type="text/javascript">
+
+
+
+$(document).ready(function(){ 
+    $("#kelas").change(function(){ 
+    	var kode_prodi = $("#kode_prodi").val();
+		var kelas = $(this).val();
+		console.log(kode_prodi);
+		console.log(kelas);
+		
+      $.ajax({
+	        url: "{{ url('admin/jadwal/get_rombel') }}",
+	        type:"GET",
+	        data: "kode_prodi="+kode_prodi+"&kelas="+kelas,
+	        success: function(data){
+	        $("#rombel").html(data);
+        }
+      });
+    });
+  });
+
+					
+				
+
 
                     function fun_view(id)
                     {
