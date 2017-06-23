@@ -113,18 +113,7 @@ SISFO | {{$atribut['title']}}
 			<th>Kelas</th>
 		</tr>
 	</thead>
-	<tbody>
-		<?php $no=1; ?>
-	@foreach($data as $x)
-	<tr>
-		<td><?php echo $no++;?></td>
-		<td>{{$x -> kode_mapel}}</td>
-		<td>{{$x -> kode_prodi}}</td>
-		<td>{{$x -> kelas}}</td>
-	</tr>
-			@endforeach
-		</tbody>
-	</tbody>
+	<div id="daftar-mapel"></div>
 </table>
 </div>
 </div>
@@ -164,7 +153,7 @@ SISFO | {{$atribut['title']}}
 	</div>
 	<div class="form-group">
 		<label>Program Studi</label>
-		<select class="form-control" id="prodi_modal" name="prodi">
+		<select class="form-control" id="prodi_modal" name="prodi" disabled="disabled">
 			<option>-- Pilih Prodi --</option>
 			@foreach($list_prodi as $prodi)
 			<option value="{{$prodi->kode_prodi}}">{{$prodi->nama_prodi}}</option>
@@ -173,7 +162,7 @@ SISFO | {{$atribut['title']}}
 	</div>
 	<div class="form-group">
 		<label>Kelas</label>
-		<select class="form-control" id="kelas_modal" name="kelas">
+		<select class="form-control" id="kelas_modal" name="kelas" disabled="disabled">
 			<option value="">-- Pilih Kelas --</option>
 			<option value="1">Kelas 1</option>
 			<option value="2">Kelas 2</option>
@@ -206,7 +195,23 @@ $(document).ready(function(){
 
         //$('#tambahMapel').show();
         $('#tambahMapel').modal('show');
-    })
+    });
+
+    $("#kelas").change(function(){ 
+    	
+		var kelas = $(this).val();
+		
+		
+      $.ajax({
+	        url: "{{ url('admin/kurikulum/get_daftar_mapel') }}",
+	        type:"GET",
+	        data: "kelas="+kelas,
+	        success: function(data){
+	        $("#daftar-mapel").html(data);
+        }
+      });
+    });
+
   });
 
 

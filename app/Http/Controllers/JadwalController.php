@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Jadwal;
 use App\Prodi;
 use App\Rombel;
+use App\Kurikulum;
 
 class JadwalController extends Controller
 {
@@ -22,7 +23,8 @@ class JadwalController extends Controller
     	$atribut  = array('title' => 'Data Jadwal' );
     	$data = Jadwal::all();
         $prodi = Prodi::all();
-    	return view('jadwal.index', ['data' => $data, 'atribut' => $atribut, 'list_prodi' => $prodi]);
+        $kurikulum = Kurikulum::all();
+    	return view('jadwal.index', ['data' => $data, 'atribut' => $atribut, 'list_prodi' => $prodi, 'list_kurikulum' => $kurikulum]);
     }
 
     /*
@@ -98,6 +100,27 @@ class JadwalController extends Controller
                 echo $data;
             }
         }
+
+        public function generate(Request $request)
+        {
+            $post = array(  'id_kurikulum' => $request->id_kurikulum,
+                            'semester' => $request->semester,
+                            'kode_prodi' => $request->prodi,
+                            'kelas' => $request->kelas,
+                            'id_rombel' => $request->rombel );
+            $result = Jadwal::funcGenerateJadwal($post);
+
+            if ($result['bIsError'] === false) {
+                $output['message'] = 'Jadwal Pelajaran berhasil di generate';
+                return back();
+            } else {
+                $output['message'] = 'Jadwal Pelajaran gagal di generate';
+                return back();
+            }
+            
+        }
+
+        
 
         
 }

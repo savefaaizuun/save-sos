@@ -19,9 +19,10 @@ class RombelController extends Controller
     public function index()
     {
     	$atribut  = array('title' => 'Data Rombel' );
-    	$data = DB::select('SELECT a.id, a.nama_rombel, a.kode_prodi, b.nama_prodi, a.kelas from tbl_rombel a 
-                            LEFT JOIN tbl_prodi b ON b.kode_prodi = a.kode_prodi
-                            ORDER BY a.id');
+    	// $data = DB::select('SELECT a.id, a.nama_rombel, a.kode_prodi, b.nama_prodi, a.kelas from tbl_rombel a 
+     //                        LEFT JOIN tbl_prodi b ON b.kode_prodi = a.kode_prodi
+     //                        ORDER BY a.id');
+        $data = Rombel::getAllRombel();
         $prodi = Prodi::all();
 
     	return view('rombel.index', ['data' => $data, 'atribut' => $atribut, 'list_prodi' => $prodi]);

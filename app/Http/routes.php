@@ -84,6 +84,7 @@ Route::group(['admin' => ['kurikulum']], function() {
     Route::post('admin/kurikulum/update', 'KurikulumController@update');
     Route::post('admin/kurikulum/delete', 'KurikulumController@delete');
     Route::get('admin/kurikulum/rincian/{id}', 'KurikulumController@rincianKurikulum');
+    Route::get('admin/kurikulum/get_daftar_mapel', 'KurikulumController@get_daftar_mapel');
     
  });
 
@@ -103,6 +104,7 @@ Route::group(['admin' => ['jadwal']], function() {
     Route::post('admin/jadwal/update', 'JadwalController@update');
     Route::post('admin/jadwal/delete', 'JadwalController@delete');
     Route::get('admin/jadwal/get_rombel', 'JadwalController@get_rombel');
+    Route::post('admin/jadwal/generate', 'JadwalController@generate');
     
  });
 // // 

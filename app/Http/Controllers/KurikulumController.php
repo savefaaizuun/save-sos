@@ -2,6 +2,7 @@
     namespace App\Http\Controllers;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\DB;
     use App\Kurikulum;
     use App\Prodi;
     use App\Mapel;
@@ -82,14 +83,24 @@
             $rincian = Kurikulum::find($id);
             $kurikulum = Kurikulum::all();
             $prodi = Prodi::all();
+            // $mapel = DB::select('SELECT a.id, a.id_kurikulum, a.kode_mapel, b.nama_mapel, a.kelas from tbl_rincian_kurikulum a 
+            //                 LEFT JOIN tbl_mapel b ON b.kode_mapel = a.kode_mapel
+            //                 WHERE id_kurikulum = '.$id.'
+            //                 ORDER BY a.id');
             $mapel = Mapel::all();
+            $mapel_kurikulum = DB::select('SELECT a.id, a.id_kurikulum, a.kode_mapel, b.nama_mapel, a.kelas from tbl_rincian_kurikulum a 
+                             LEFT JOIN tbl_mapel b ON b.kode_mapel = a.kode_mapel
+                             WHERE id_kurikulum = '.$id.'
+                             ORDER BY a.id');
+
             $rincian = RincianKurikulum::all();
             return view('kurikulum.rincian', [  'data' => $rincian, 
                                                 'atribut' => $atribut, 
                                                 'list_prodi' => $prodi, 
                                                 'list_kurikulum' => $kurikulum,
                                                 'list_mapel' => $mapel,
-                                                'list_rincian' => $rincian]);
+                                                'list_rincian' => $rincian,
+                                                'mapel_kurikulum' => $mapel_kurikulum]);
         }
 
         /*
@@ -106,6 +117,21 @@
             $data -> save();
             return back()
                     ->with('success','Record Added successfully.');
+        }
+
+        public function get_daftar_mapel(Request $request, $id)
+        {
+            if($request->ajax()){
+                $kelas = $request->kelas;
+
+                echo json_decode($kelas);die;
+                $mapel_kurikulum = DB::select('SELECT a.id, a.id_kurikulum, a.kode_mapel, b.nama_mapel, a.kelas from tbl_rincian_kurikulum a 
+                             LEFT JOIN tbl_mapel b ON b.kode_mapel = a.kode_mapel
+                             WHERE id_kurikulum = '.$id.' AND kelas = '.$kelas.'
+                             ORDER BY a.id');
+                
+                return view('kurikulum.cari_daftar_mapel', ['mapel_kurikulum' => $mapel_kurikulum]);       
+            }
         }
 }
     

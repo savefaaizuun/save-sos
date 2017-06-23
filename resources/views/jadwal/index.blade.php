@@ -89,9 +89,10 @@ SISFO | {{$atribut['title']}}
 			</tr>
 			<tr>
 				<td colspan="2">
-				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+				<button type="button" class="btn btn-primary btn-sm" id="generate">
 					<i class="fa fa-cogs" aria-hidden="true"></i> Generate Jadwal
 				</button>
+				
 				<button type="submit" name="export_jadwal" class="btn btn-danger btn-sm"><i class="fa fa-print" aria-hidden="true"></i> Cetak PDF</button>
 				</td>
 			</tr>
@@ -202,6 +203,47 @@ SISFO | {{$atribut['title']}}
 	</div>
 </div>
 
+<div class="modal fade" id="generateModal" role="dialog">
+<div class="modal-dialog">
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Tambah {{$atribut['title']}}</h4>
+</div>
+<div class="modal-body">
+<form role="form" action="{{ url('admin/jadwal/generate') }}" method="post">
+	{{ csrf_field() }}
+	<div class="form-group">
+		<label>Kurikulum</label>
+		<select class="form-control" id="kurikulum" name="id_kurikulum">
+			<option>-- Pilih Kurikulum --</option>
+			@foreach($list_kurikulum as $kur)
+			<option value="{{$kur->id}}">{{$kur->nama_kurikulum}}</option>
+			@endforeach 
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Semester</label>
+		<select class="form-control" id="semester" name="semester">
+			<option>-- Pilih Semester --</option>
+			<option value="1">Semester 1</option>
+			<option value="2">Semester 2</option>
+		</select>
+	</div>
+</div>
+<div class="modal-footer">
+	<input type="hidden" name="prodi" id="prodi_modal">
+	<input type="hidden" name="kelas" id="kelas_modal">
+	<input type="hidden" name="rombel" id="rombel_modal">
+	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+	<button class="btn btn-info pull-right m-t-n-xs" type="submit"><i class="fa fa-save"></i><strong> Generate Jadwal</strong></button>
+</div>
+</form>
+</div>
+</div>
+</div>
+
 @endsection
 <!-- Edit code ends -->
 @section('script')
@@ -226,10 +268,22 @@ $(document).ready(function(){
         }
       });
     });
+
+    $("#generate").click(function(){
+    	var prodi = $("#kode_prodi").val();
+    	var kelas = $("#kelas").val();
+    	var rombel = $("#rombel").val();
+    	
+        $("#prodi_modal").val(prodi);
+        $("#kelas_modal").val(kelas);
+        $("#rombel_modal").val(rombel);
+
+        //$('#generate').show();
+        $('#generateModal').modal('show');
+    })
+
   });
 
-					
-				
 
 
                     function fun_view(id)
