@@ -37,7 +37,7 @@ Route::group(['admin' => ['guru']], function() {
     Route::get('admin/guru/view', 'GuruController@view');
     Route::post('admin/guru/update', 'GuruController@update');
     Route::post('admin/guru/delete', 'GuruController@delete');
-    
+
  });
 
 Route::group(['admin' => ['mapel']], function() {
@@ -46,7 +46,7 @@ Route::group(['admin' => ['mapel']], function() {
     Route::get('admin/mapel/view', 'MapelController@view');
     Route::post('admin/mapel/update', 'MapelController@update');
     Route::post('admin/mapel/delete', 'MapelController@delete');
-    
+
  });
 
 Route::group(['admin' => ['ruang']], function() {
@@ -55,7 +55,7 @@ Route::group(['admin' => ['ruang']], function() {
     Route::get('admin/ruang/view', 'RuangController@view');
     Route::post('admin/ruang/update', 'RuangController@update');
     Route::post('admin/ruang/delete', 'RuangController@delete');
-    
+
  });
 
 Route::group(['admin' => ['prodi']], function() {
@@ -64,16 +64,16 @@ Route::group(['admin' => ['prodi']], function() {
     Route::get('admin/prodi/view', 'ProdiController@view');
     Route::post('admin/prodi/update', 'ProdiController@update');
     Route::post('admin/prodi/delete', 'ProdiController@delete');
-    
+
  });
 
 Route::group(['admin' => ['konfigTahunAkademik']], function() {
-    Route::get('admin/konfigTahunAkademik', 'KonfigTahunAkademikController@index');
-    Route::post('admin/konfigTahunAkademik', 'KonfigTahunAkademikController@add');
-    Route::get('admin/konfigTahunAkademik/view', 'KonfigTahunAkademikController@view');
-    Route::post('admin/konfigTahunAkademik/update', 'KonfigTahunAkademikController@update');
-    Route::post('admin/konfigTahunAkademik/delete', 'KonfigTahunAkademikController@delete');
-    
+    Route::get('admin/tahun_akademik', 'KonfigTahunAkademikController@index');
+    Route::post('admin/tahun_akademik', 'KonfigTahunAkademikController@add');
+    Route::get('admin/tahun_akademik/view', 'KonfigTahunAkademikController@view');
+    Route::post('admin/tahun_akademik/update', 'KonfigTahunAkademikController@update');
+    Route::post('admin/tahun_akademik/delete', 'KonfigTahunAkademikController@delete');
+
  });
 
 Route::group(['admin' => ['kurikulum']], function() {
@@ -85,7 +85,7 @@ Route::group(['admin' => ['kurikulum']], function() {
     Route::post('admin/kurikulum/delete', 'KurikulumController@delete');
     Route::get('admin/kurikulum/rincian/{id}', 'KurikulumController@rincianKurikulum');
     Route::get('admin/kurikulum/get_daftar_mapel', 'KurikulumController@get_daftar_mapel');
-    
+
  });
 
 Route::group(['admin' => ['rombel']], function() {
@@ -94,7 +94,7 @@ Route::group(['admin' => ['rombel']], function() {
     Route::get('admin/rombel/view', 'rombelController@view');
     Route::post('admin/rombel/update', 'rombelController@update');
     Route::post('admin/rombel/delete', 'rombelController@delete');
-    
+
  });
 
 Route::group(['admin' => ['jadwal']], function() {
@@ -105,16 +105,16 @@ Route::group(['admin' => ['jadwal']], function() {
     Route::post('admin/jadwal/delete', 'JadwalController@delete');
     Route::get('admin/jadwal/get_rombel', 'JadwalController@get_rombel');
     Route::post('admin/jadwal/generate', 'JadwalController@generate');
-    
+
  });
-// // 
+// //
 //     Route::get('siswa', 'SiswaController@index');
 //     Route::post('siswa', 'SiswaController@add');
 //     Route::get('siswa/view', 'SiswaController@view');
 //     Route::post('siswa/update', 'SiswaController@update');
 //     Route::post('siswa/delete', 'SiswaController@delete');
 
-    
+
 
     Route::get('student', 'StudentController@index');
     Route::post('student', 'StudentController@add');
