@@ -11,12 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/test', function () {
-    return view('test');
-});
+// Route::get('/', [
+//    'as' => 'index', 'uses' => 'HomeController@index'
+//  ]);
+// Route::get('register', [
+//    'as' => 'register', 'uses' => 'SimpleauthController@register'
+//  ]);
+
+//  Route::post('/register', [
+//   'as' => 'post-registration', 'uses' =>   'SimpleauthController@doRegister'
+// ]);
+
+//Route::post('register', 'SimpleauthController@doRegister');
+
+
 
 
 // // Route::get('/admin', function () {
@@ -121,3 +129,26 @@ Route::group(['admin' => ['jadwal']], function() {
     Route::get('student/view', 'StudentController@view');
     Route::post('student/update', 'StudentController@update');
     Route::post('student/delete', 'StudentController@delete');
+    
+Route::Group(['middleware' => 'web'], function(){
+    Route::auth();
+});
+
+Route::group(['middleware' => ['web', 'auth']], function(){
+    Route::get('/home', 'HomeController@index');
+    Route::get('/', function(){
+        if (Auth::user()->admin == 1) {
+            return view('admin_home');
+        } else {
+            return view('user_home');
+        }
+    });
+});
+
+Route::get('admin', ['middleware'=> ['web', 'auth', 'admin'], function(){
+    return view('admin/admin_home');
+}]);
+
+
+
+Route::get('/home', 'HomeController@index');
