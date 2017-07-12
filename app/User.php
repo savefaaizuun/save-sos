@@ -1,26 +1,40 @@
 <?php
-
 namespace App;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+ use Authenticatable, CanResetPassword;
+/**
+ * The database table used by the model.
+ *
+ * @var string
+ */
+ protected $table = 'tbl_users';
+/**
+ * The attributes that are mass assignable.
+ *
+ * @var array
+ */
+ protected $fillable = ['name', 'email', 'password', 'activation_code', 'active'];
+/**
+ * The attributes excluded from the model’s JSON form.
+ *
+ * @var array
+ */
+ protected $hidden = ['password', 'remember_token'];
+public function activateAccount($code)
+ {
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+  $user = User::where('activation_code', $code)->first();
+
+ if($user){
+  $user->update(['active' => 1, 'activation_code' => NULL]);
+  \Auth::login($user);
+  return true;
+ }
+ }
 }
