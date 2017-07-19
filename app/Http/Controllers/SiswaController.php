@@ -1,18 +1,29 @@
-<?php 
+<?php
     namespace App\Http\Controllers;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
     use App\Siswa;
+    use Session;
     class SiswaController extends Controller
     {
+        public function __construct()
+        {
+            $this->middleware('auth');
+            $this->middleware('rule:admin');
+        }
         /*
          * Display all data
          */
-	    public function index()
+	    public function index(Request $request)
 	    {
-	    	$atribut = array("title"=>"Data Siswa");
+            // echo $request->session()->get('role_id');
+            // echo $request->session()->get('email');die;
+            $session_role = $request->session()->get('role_id');
+            $atribut = array("title"=>"Data Siswa");
             $data = Siswa::all();
-            return view('siswa.index', ['data' => $data, 'atribut' => $atribut]);
+            return view('siswa.index', ['data' => $data,
+                                        'atribut' => $atribut,
+                                        'session_role' => $session_role]);
 	    }
 
         /*

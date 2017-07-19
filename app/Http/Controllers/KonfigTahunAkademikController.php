@@ -1,10 +1,16 @@
-<?php 
+<?php
     namespace App\Http\Controllers;
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
     use App\KonfigTahun;
     class KonfigTahunAkademikController extends Controller
     {
+
+      public function __construct()
+        {
+            $this->middleware('auth');
+            $this->middleware('rule:admin');
+        }
         /*
          * Display all data
          */
@@ -65,7 +71,7 @@
             $id = $request -> id;
             $data = KonfigTahun::find($id);
             $response = $data -> delete();
-            
+
             if($response)
                 echo "Record Deleted successfully.";
             else

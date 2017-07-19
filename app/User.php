@@ -1,40 +1,41 @@
 <?php
+
 namespace App;
+
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
-{
- use Authenticatable, CanResetPassword;
-/**
- * The database table used by the model.
- *
- * @var string
- */
- protected $table = 'tbl_users';
-/**
- * The attributes that are mass assignable.
- *
- * @var array
- */
- protected $fillable = ['name', 'email', 'password', 'activation_code', 'active'];
-/**
- * The attributes excluded from the model’s JSON form.
- *
- * @var array
- */
- protected $hidden = ['password', 'remember_token'];
-public function activateAccount($code)
- {
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
-  $user = User::where('activation_code', $code)->first();
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+    //protected $table = 'roles';
 
- if($user){
-  $user->update(['active' => 1, 'activation_code' => NULL]);
-  \Auth::login($user);
-  return true;
- }
- }
+    use Authenticatable, CanResetPassword;
+    //use SoftDeletes;
+
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'roles_id');
+    }
+
+    public function punyaRule($rule)
+    {
+        //dd($this->role->namaRule);
+        //dd($this->role->nameRule);
+      if ($this->role->nameRule == $rule) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 }

@@ -14,26 +14,44 @@
 Route::get('/', [
    'as' => 'index', 'uses' => 'HomeController@index'
  ]);
-Route::get('register', [
-   'as' => 'register', 'uses' => 'SimpleauthController@register'
- ]);
+// Route::get('register', [
+//    'as' => 'register', 'uses' => 'SimpleauthController@register'
+//  ]);
+//
+// Route::post('post-registration', 'SimpleauthController@doRegister');
+//
+// Route::get('/registration/activate/{code}', [
+//  'as' => 'activate', 'uses' => 'SimpleauthController@activate'
+//  ]);
+//
+//  Route::post('/login', [
+//  'as' => 'login', 'uses' => 'SimpleauthController@login'
+//  ]);
+// Route::get('logout', [
+//  'as' => 'logout', 'uses' => 'SimpleauthController@logout'
+//  ]);
 
-//  Route::post('register', [
-//   'as' => 'post-registration', 'uses' =>   'SimpleauthController@doRegister'
-// ]);
+Route::get('register', 'RegisterController@getRegister');
+Route::post('postRegister', 'RegisterController@postRegister');
 
-Route::post('post-registration', 'SimpleauthController@doRegister');
+Route::get('login', 'LoginController@getLogin');
+Route::post('postLogin', 'LoginController@postLogin');
 
-Route::get('/registration/activate/{code}', [
- 'as' => 'activate', 'uses' => 'SimpleauthController@activate'
- ]);
+Route::get('admin/logout', function(){
+   Auth::logout();
+   return 'sukses logout';
+});
 
- Route::post('/login', [
- 'as' => 'login', 'uses' => 'SimpleauthController@login'
- ]);
-Route::get('logout', [
- 'as' => 'logout', 'uses' => 'SimpleauthController@logout'
- ]);
+Route::get('pageAksesKhusus', function(){
+  return view ('pageAksesKhusus');
+});
+
+Route::get('delete', 'AdminController@delete');
+Route::get('update', 'AdminController@update');
+
+Route::get('session/get','SessionController@accessSessionData');
+Route::get('session/set','SessionController@storeSessionData');
+Route::get('session/remove','SessionController@deleteSessionData');
 
 
 
