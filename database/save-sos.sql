@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : MySql
-Source Server Version : 50621
-Source Host           : localhost:3307
+Source Server         : MySqlDivusi
+Source Server Version : 100116
+Source Host           : localhost:3306
 Source Database       : save-sos
 
 Target Server Type    : MYSQL
-Target Server Version : 50621
+Target Server Version : 100116
 File Encoding         : 65001
 
-Date: 2017-07-19 11:53:04
+Date: 2017-08-04 18:19:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,6 +83,7 @@ CREATE TABLE `tbl_guru` (
 -- ----------------------------
 -- Records of tbl_guru
 -- ----------------------------
+INSERT INTO `tbl_guru` VALUES ('0', '12345', 'Edi Kusnadi', 'L', 'edi', null, '2017-08-02 09:40:57', '2017-08-02 09:40:57');
 
 -- ----------------------------
 -- Table structure for tbl_jadwal
@@ -262,11 +263,11 @@ CREATE TABLE `tbl_ruang` (
 INSERT INTO `tbl_ruang` VALUES ('1', 'RPL', 'R1', null, '2017-06-29 12:52:58');
 
 -- ----------------------------
--- Table structure for tbl_siswa
+-- Table structure for tbl_s_data_siswa
 -- ----------------------------
-DROP TABLE IF EXISTS `tbl_siswa`;
-CREATE TABLE `tbl_siswa` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tbl_s_data_siswa`;
+CREATE TABLE `tbl_s_data_siswa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_rombel` varchar(11) DEFAULT NULL,
   `nama_lengkap` varchar(100) DEFAULT NULL,
   `nis` varchar(20) DEFAULT NULL,
@@ -275,13 +276,24 @@ CREATE TABLE `tbl_siswa` (
   `gender` enum('L','P') DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
+  `nama_panggilan` varchar(50) DEFAULT NULL,
+  `agama` varchar(30) DEFAULT NULL,
+  `warga_negara` enum('WNI','WNA') DEFAULT NULL,
+  `anak_ke` int(3) DEFAULT NULL,
+  `saudara_kandung` int(3) DEFAULT NULL,
+  `saudara_tiri` int(3) DEFAULT NULL,
+  `saudara_angkat` int(3) DEFAULT NULL,
+  `status_anak` enum('AK','AT','AA') DEFAULT NULL,
+  `bahasa` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `nisn` varchar(11) DEFAULT NULL,
+  `status_aktif` enum('Aktif','Keluar','Pindah','Lulus') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of tbl_siswa
+-- Records of tbl_s_data_siswa
 -- ----------------------------
 
 -- ----------------------------

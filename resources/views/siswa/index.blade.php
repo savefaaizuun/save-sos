@@ -70,7 +70,7 @@ SISFO | {{$atribut['title']}}
 	<tr>
 		<td><?php echo $no++;?></td>
 		<td>{{$x -> nis}}</td>
-		<td>{{$x -> nama}}</td>
+		<td>{{$x -> nama_lengkap}}</td>
 		<td>{{($x -> gender == 'L' ? 'Laki-laki' : 'Perempuan')}}</td>
 		<td>{{$x -> tempat_lahir . ', ' .$x -> tgl_lahir}}</td>
 		<td>
@@ -110,20 +110,80 @@ SISFO | {{$atribut['title']}}
 				<h4 class="modal-title">Tambah {{$atribut['title']}}</h4>
 			</div>
              <div class="modal-body">				
-					<form role="form" action="{{ url('admin/siswa') }}" method="post">
-					{{ csrf_field() }}
-						<div class="form-group">
-							<label for="nis">NIS:</label>
-							<input type="text" class="form-control" id="nis" name="nis">
-						</div>
-						<div class="form-group">
-							<label for="nama">Nama:</label>
-							<input type="text" class="form-control" id="nama" name="nama">
-						</div>
-						<div class="form-group">
-							<label for="gender">Gender</label> 
-							<input type="text" class="form-control" id="gender" name="gender">
-						</div>
+					
+						<form class="form-horizontal" action="{{ url('admin/siswa') }}" method="post">
+						{{ csrf_field() }}
+							<div class="form-group"><label class="col-lg-2 control-label">NIS</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="nis" name="nis">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">NISN</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="nisn" name="nisn">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Nama Lengkap</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Nama Panggilan</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Gender</label>
+								<div class="col-lg-10">
+									<label><input type="radio" value="L" id="gender" name="gender"> Laki-laki</label>
+									<label><input type="radio" value="P" id="gender" name="gender"> Perempuan</label>
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Nama</label>
+								<div class="col-lg-10">
+									<select name="agama" id="agama" class="form-control">
+										<option value="">- Pilih Agama -</option>
+										<option value="1">Islam</option>
+										<option value="2">Kristen</option>
+										<option value="3">Katolik</option>
+										<option value="4">Hindu</option>
+										<option value="5">Budha</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Warga Negara</label>
+								<div class="col-lg-10">
+									<label><input type="radio" value="L" id="warga_negara" name="warga_negara"> WNI</label>
+									<label><input type="radio" value="P" id="warga_negara" name="warga_negara"> WNA</label>
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Anak Ke</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="anak_ke" name="anak_ke">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Jumlah Saudara</label>
+								<div class="col-lg-10">
+									<label>Kandung</label><input type="text" class="form-control" id="saudara_kandung" name="saudara_kandung">
+									<label>Tiri</label><input type="text" class="form-control" id="saudara_tiri" name="saudara_tiri">
+									<label>Angkat</label><input type="text" class="form-control" id="saudara_angkat" name="saudara_angkat">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Bahasa Sehari-hari</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="bahasa" name="bahasa">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Foto</label>
+								<div class="col-lg-10">
+									<input type="file" class="form-control" id="foto" name="foto">
+								</div>
+							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Status</label>
+								<div class="col-lg-10">
+									<input type="checkbox" value="option1" id="status_aktif" name="status_aktif">
+								</div>
+							</div>
 					
 			</div>
 			<div class="modal-footer">
@@ -148,7 +208,7 @@ SISFO | {{$atribut['title']}}
 			</div>
 			<div class="modal-body">
 				<p><b>NIS : </b><span id="view_nis" class="text-success"></span></p>
-				<p><b>Nama : </b><span id="view_nama" class="text-success"></span></p>
+				<p><b>Nama_lengkap : </b><span id="view_nama_lengkap" class="text-success"></span></p>
 				<p><b>Gender : </b><span id="view_gender" class="text-success"></span></p>
 			</div>
 			<div class="modal-footer">

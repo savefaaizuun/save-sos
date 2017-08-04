@@ -31,9 +31,10 @@
          */
         public function add(Request $request)
         {
+            //dd($request);
             $data = new Siswa;
             $data -> nis = $request -> nis;
-            $data -> nama = $request -> nama;
+            $data -> nama_lengkap = $request -> nama_lengkap;
             $data -> gender = $request -> gender;
             $data -> save();
             return back()

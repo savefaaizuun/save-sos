@@ -114,7 +114,7 @@ SISFO | {{$atribut['title']}}
 							</div>
 							<div class="form-group">
 								<label>Status</label> 
-								{{-- <input type="text" class="form-control" id="is_aktif" name="is_aktif"> --}}
+								<input type="text" class="form-control" id="is_aktif" name="is_aktif">
 								<select class="form-control" id="is_aktif" name="is_aktif">
                                         <option>-- Status --</option>
                                         <option value="1">Aktif</option>
