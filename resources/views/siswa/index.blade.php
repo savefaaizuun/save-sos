@@ -130,7 +130,7 @@ SISFO | {{$atribut['title']}}
 							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Nama Panggilan</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap">
+									<input type="text" class="form-control" id="nama_panggilan" name="nama_panggilan">
 								</div>
 							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Gender</label>
@@ -139,22 +139,30 @@ SISFO | {{$atribut['title']}}
 									<label><input type="radio" value="P" id="gender" name="gender"> Perempuan</label>
 								</div>
 							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Tempat, tanggal lahir</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
+								</div>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir">
+								</div>
+							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Nama</label>
 								<div class="col-lg-10">
 									<select name="agama" id="agama" class="form-control">
 										<option value="">- Pilih Agama -</option>
-										<option value="1">Islam</option>
-										<option value="2">Kristen</option>
-										<option value="3">Katolik</option>
-										<option value="4">Hindu</option>
-										<option value="5">Budha</option>
+										<option value="Islam">Islam</option>
+										<option value="Kristen">Kristen</option>
+										<option value="Katolik">Katolik</option>
+										<option value="Hindu">Hindu</option>
+										<option value="Budha">Budha</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Warga Negara</label>
 								<div class="col-lg-10">
-									<label><input type="radio" value="L" id="warga_negara" name="warga_negara"> WNI</label>
-									<label><input type="radio" value="P" id="warga_negara" name="warga_negara"> WNA</label>
+									<label><input type="radio" value="WNI" id="warga_negara" name="warga_negara"> WNI</label>
+									<label><input type="radio" value="WNA" id="warga_negara" name="warga_negara"> WNA</label>
 								</div>
 							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Anak Ke</label>
@@ -163,9 +171,13 @@ SISFO | {{$atribut['title']}}
 								</div>
 							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Jumlah Saudara</label>
-								<div class="col-lg-10">
+								<div class="col-lg-3">
 									<label>Kandung</label><input type="text" class="form-control" id="saudara_kandung" name="saudara_kandung">
+								</div>
+								<div class="col-lg-3">
 									<label>Tiri</label><input type="text" class="form-control" id="saudara_tiri" name="saudara_tiri">
+								</div>
+								<div class="col-lg-3">
 									<label>Angkat</label><input type="text" class="form-control" id="saudara_angkat" name="saudara_angkat">
 								</div>
 							</div>
@@ -180,8 +192,14 @@ SISFO | {{$atribut['title']}}
 								</div>
 							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Status</label>
-								<div class="col-lg-10">
-									<input type="checkbox" value="option1" id="status_aktif" name="status_aktif">
+									<div class="col-lg-10">
+									<select name="status_aktif" id="status_aktif" class="form-control">
+										<option value="">- Pilih Status -</option>
+										<option value="Aktif">Aktif</option>
+										<option value="Keluar">Keluar</option>
+										<option value="Pindah">Pindah</option>
+										<option value="Lulus">Lulus</option>
+									</select>
 								</div>
 							</div>
 					
