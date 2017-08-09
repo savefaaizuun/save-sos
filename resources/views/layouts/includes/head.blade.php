@@ -10,7 +10,7 @@
         <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
         <!-- Datepicker -->
-
+        <link href="{{ asset('assets/plugins/datepicker/css/datepicker.css') }}" rel="stylesheet">
 
         <!-- Jquery -->
         <script src="{{ asset('assets/js/jquery-2.1.1.js') }}"></script>
@@ -23,6 +23,8 @@
         <script src="{{ asset('assets/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/dataTables/dataTables.responsive.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/dataTables/dataTables.tableTools.min.js') }}"></script>
+        <!-- Datepicker -->
+        <script src="{{ asset('assets/plugins/datepicker/js/bootstrap-datepicker.js') }}"></script>
         <!-- Custom and plugin javascript -->
         <script src="{{ asset('assets/js/inspinia.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/pace/pace.min.js') }}"></script>
@@ -69,4 +71,5 @@
                     .dataTables_filter label {
                     margin-right: 5px;
                     }
+                    .datepicker{z-index:1151;}
                     </style>
