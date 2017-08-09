@@ -31,13 +31,15 @@
             return view('siswa.test');
         }
 
-        public function detail(Request $request)
+        public function detail($id)
         {
-            $session_role = $request->session()->get('role_id');
+            //$session_role = $request->session()->get('role_id');
+            $detail_siswa = Siswa::find($id);
+            //dd($detail_siswa);
             $atribut = array("title"=>"Detail Data Siswa");
             return view('siswa.detail',[
                                         'atribut' => $atribut,
-                                        'session_role' => $session_role]);
+                                        'detail_siswa' => $detail_siswa]);
         }
 
         /*

@@ -75,7 +75,7 @@ SISFO | {{$atribut['title']}}
 		<td>{{($x -> gender == 'L' ? 'Laki-laki' : 'Perempuan')}}</td>
 		<td>{{$x -> tempat_lahir . ', ' .$x -> tgl_lahir}}</td>
 		<td>
-			<a href="{{url('admin/siswa/detail')}}"><button class="btn btn-info btn-sm dim"><span class="glyphicon glyphicon-eye-open"> View</button></a>
+			<a href="{{url('admin/siswa/detail/'.$x->id)}}"><button class="btn btn-info btn-sm dim"><span class="glyphicon glyphicon-eye-open"> View</button></a>
 				<button class="btn btn-warning btn-sm dim" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$x -> id}}')"><span class="glyphicon glyphicon-edit dim"> Edit</button>
 					<button class="btn btn-danger btn-sm dim" onclick="fun_delete('{{$x -> id}}')"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 				</td>
@@ -320,6 +320,12 @@ SISFO | {{$atribut['title']}}
 									<label>Angkat</label><input type="text" class="form-control" id="edit_saudara_angkat" name="edit_saudara_angkat">
 								</div>
 							</div>
+							<div class="form-group"><label class="col-lg-2 control-label">Status Anak</label>
+								<div class="col-lg-10">
+									<label><input type="radio" value="AK" id="anak_kandung" name="status_anak"> Anak Kandung</label>
+									<label><input type="radio" value="AT" id="anak_tiri" name="status_anak"> Anak Tiri</label>
+								</div>
+							</div>
 							<div class="form-group"><label class="col-lg-2 control-label">Bahasa Sehari-hari</label>
 								<div class="col-lg-10">
 									<input type="text" class="form-control" id="edit_bahasa" name="edit_bahasa">
@@ -377,43 +383,48 @@ function fun_edit(id){
 	var view_url = $("#hidden_view").val();
 	//console.log(view_url);
 	$.ajax({
-	url: view_url,
-	type:"GET",
-	data: {"id":id},
-	success: function(result){
-		console.log(result);
-		$("#edit_id").val(result.id);
-		$("#edit_nis").val(result.nis);
-		$("#edit_nisn").val(result.nisn);
-		$("#edit_nama_lengkap").val(result.nama_lengkap);
-		$("#edit_nama_panggilan").val(result.nama_panggilan);
-		console.log(result.gender);
-		if (result.gender == 'L') {
-			$("#laki-laki").attr('checked', 'checked');
+		url: view_url,
+		type:"GET",
+		data: {"id":id},
+		success: function(result){
+			console.log(result);
+			$("#edit_id").val(result.id);
+			$("#edit_nis").val(result.nis);
+			$("#edit_nisn").val(result.nisn);
+			$("#edit_nama_lengkap").val(result.nama_lengkap);
+			$("#edit_nama_panggilan").val(result.nama_panggilan);
+			console.log(result.gender);
+			if (result.gender == 'L') {
+				$("#laki-laki").attr('checked', 'checked');
 
-		} else {
-			$("#perempuan").attr('checked', 'checked');
-		}
-		//$("#edit_gender").val(result.gender);
-		$("#edit_tempat_lahir").val(result.tempat_lahir);
-		$("#edit_tgl_lahir").val(result.tgl_lahir);
-		$("#edit_agama").val(result.agama);
-		$("#edit_warga_negara").val(result.warga_negara);
-		if (result.warga_negara == 'WNI') {
-			$("#wni").attr('checked', 'checked');
+			} else {
+				$("#perempuan").attr('checked', 'checked');
+			}
+			//$("#edit_gender").val(result.gender);
+			$("#edit_tempat_lahir").val(result.tempat_lahir);
+			$("#edit_tgl_lahir").val(result.tgl_lahir);
+			$("#edit_agama").val(result.agama);
+			$("#edit_warga_negara").val(result.warga_negara);
+			if (result.warga_negara == 'WNI') {
+				$("#wni").attr('checked', 'checked');
 
-		} else {
-			$("#wna").attr('checked', 'checked');
+			} else {
+				$("#wna").attr('checked', 'checked');
+			}
+			$("#edit_anak_ke").val(result.anak_ke);
+			$("#edit_saudara_kandung").val(result.saudara_kandung);
+			$("#edit_saudara_tiri").val(result.saudara_tiri);
+			$("#edit_saudara_angkat").val(result.saudara_angkat);
+			if (result.status_anak == 'AK') {
+				$("#anak_kandung").attr('checked', 'checked');
+			} else {
+				$("#anak_tiri").attr('checked', 'checked');
+			}
+			//$("#edit_status_anak").val(result.status_anak);
+			$("#edit_bahasa").val(result.bahasa);
+			$("#edit_status_aktif").val(result.status_aktif);
 		}
-		$("#edit_anak_ke").val(result.anak_ke);
-		$("#edit_saudara_kandung").val(result.saudara_kandung);
-		$("#edit_saudara_tiri").val(result.saudara_tiri);
-		$("#edit_saudara_angkat").val(result.saudara_angkat);
-		$("#edit_status_anak").val(result.status_anak);
-		$("#edit_bahasa").val(result.bahasa);
-		$("#edit_status_aktif").val(result.status_aktif);
-	}
-});
+	});
 }
 function fun_delete(id){
 	var conf = confirm("Are you sure want to delete??");

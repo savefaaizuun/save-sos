@@ -31,6 +31,7 @@ Route::get('/', [
 //  'as' => 'logout', 'uses' => 'SimpleauthController@logout'
 //  ]);
 
+
 Route::get('register', 'RegisterController@getRegister');
 Route::post('postRegister', 'RegisterController@postRegister');
 
@@ -63,7 +64,7 @@ Route::get('session/remove','SessionController@deleteSessionData');
 Route::group(['admin' => ['siswa']], function() {
 	Route::get('admin/siswa', 'SiswaController@index');
     Route::get('admin/siswa/test', 'SiswaController@test');
-    Route::get('admin/siswa/detail', 'SiswaController@detail');
+    Route::get('admin/siswa/detail/{id}', 'SiswaController@detail');
     Route::post('admin/siswa', 'SiswaController@add');
     Route::get('admin/siswa/view', 'SiswaController@view');
     Route::post('admin/siswa/update', 'SiswaController@update');
