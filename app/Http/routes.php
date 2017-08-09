@@ -60,7 +60,15 @@ Route::get('session/remove','SessionController@deleteSessionData');
 // // Route::get('/admin', function () {
 // //     return view('dashboard');
 // // });
-
+Route::group(['admin' => ['data_induk_siswa']], function() {
+    Route::get('admin/data_induk_siswa', 'DataIndukSiswaController@index');
+    Route::get('admin/data_induk_siswa/test', 'DataIndukSiswaController@test');
+    Route::get('admin/data_induk_siswa/detail/{id}', 'DataIndukSiswaController@detail');
+    Route::post('admin/data_induk_siswa', 'DataIndukSiswaController@add');
+    Route::get('admin/data_induk_siswa/view', 'DataIndukSiswaController@view');
+    Route::post('admin/data_induk_siswa/update', 'DataIndukSiswaController@update');
+    Route::post('admin/data_induk_siswa/delete', 'DataIndukSiswaController@delete');
+ });
 Route::group(['admin' => ['siswa']], function() {
 	Route::get('admin/siswa', 'SiswaController@index');
     Route::get('admin/siswa/test', 'SiswaController@test');

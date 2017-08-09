@@ -88,10 +88,18 @@
             //                 WHERE id_kurikulum = '.$id.'
             //                 ORDER BY a.id');
             $mapel = Mapel::all();
-            $mapel_kurikulum = DB::select('SELECT a.id, a.id_kurikulum, a.kode_mapel, b.nama_mapel, a.kelas from tbl_rincian_kurikulum a 
-                             LEFT JOIN tbl_mapel b ON b.kode_mapel = a.kode_mapel
-                             WHERE id_kurikulum = '.$id.'
-                             ORDER BY a.id');
+            $mapel_kurikulum = DB::select('SELECT
+                                                a.id,
+                                                a.id_kurikulum,
+                                                a.kode_mapel,
+                                                b.nama_mapel
+                                            FROM
+                                                tbl_rincian_kurikulum a
+                                            LEFT JOIN tbl_mapel b ON b.kode_mapel = a.kode_mapel
+                                            WHERE
+                                                id_kurikulum = 1
+                                            ORDER BY
+                                                a.id');
 
             $rincian = RincianKurikulum::all();
             return view('kurikulum.rincian', [  'data' => $rincian, 
