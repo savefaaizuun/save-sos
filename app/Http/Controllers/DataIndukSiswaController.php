@@ -115,6 +115,33 @@
                     ->with('success','Record Updated successfully.');
         }
 
+        public function update_data_siswa(Request $request)
+        {
+            //dd($request);
+            $id = $request -> id;
+            //dd($id);
+            $data = DataIndukSiswa::find($id);
+            $data -> nis = $request -> nis;
+            $data -> nisn = $request -> nisn;
+            $data -> nama_lengkap = $request -> nama_lengkap;
+            $data -> nama_panggilan = $request -> nama_panggilan;
+            $data -> gender = $request -> gender;
+            $data -> tempat_lahir = $request -> tempat_lahir;
+            $data -> tgl_lahir = date('Y-m-d', strtotime($request->tgl_lahir));
+            $data -> agama = $request -> agama;
+            $data -> warga_negara = $request -> warga_negara;
+            $data -> anak_ke = $request -> anak_ke;
+            $data -> saudara_kandung = $request -> saudara_kandung;
+            $data -> saudara_tiri = $request -> saudara_tiri;
+            $data -> saudara_angkat = $request -> saudara_angkat;
+            $data -> status_anak = $request -> status_anak;
+            $data -> bahasa = $request -> bahasa;
+            $data -> status_aktif = $request -> status_aktif;
+            $data -> save();
+            return back()
+                    ->with('success','Record Updated successfully.');
+        }
+
         /*
         *   Delete record
         */

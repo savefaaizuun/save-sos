@@ -67,6 +67,7 @@ Route::group(['admin' => ['data_induk_siswa']], function() {
     Route::post('admin/data_induk_siswa', 'DataIndukSiswaController@add');
     Route::get('admin/data_induk_siswa/view', 'DataIndukSiswaController@view');
     Route::post('admin/data_induk_siswa/update', 'DataIndukSiswaController@update');
+    Route::post('admin/data_induk_siswa/update_data_siswa', 'DataIndukSiswaController@update_data_siswa');
     Route::post('admin/data_induk_siswa/delete', 'DataIndukSiswaController@delete');
  });
 Route::group(['admin' => ['siswa']], function() {
@@ -76,6 +77,7 @@ Route::group(['admin' => ['siswa']], function() {
     Route::post('admin/siswa', 'SiswaController@add');
     Route::get('admin/siswa/view', 'SiswaController@view');
     Route::post('admin/siswa/update', 'SiswaController@update');
+
     Route::post('admin/siswa/delete', 'SiswaController@delete');
  });
 

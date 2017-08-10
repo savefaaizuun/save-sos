@@ -27,7 +27,7 @@ SISFO | {{$atribut['title']}}
 
 <div class="col-lg-2">
 	<div class="box-btn-add" style="margin-top: 30px;">
-		<button class="btn btn-outline btn-info  dim" data-toggle="modal" data-target="#addModal" type="button"><i class="fa fa-plus"></i> Tambah</button>
+		<button class="btn btn-outline btn-info  dim unlock" id="unlock" type="button"><span class="fa fa-unlock"></span> Unlock</button>
 	</div>
 </div>
 @endsection
@@ -78,44 +78,46 @@ SISFO | {{$atribut['title']}}
 
                             <div class="tab-content">
                                 <div id="tab-1" class="tab-pane active">
-                                        <form class="form-horizontal">
+                                        <form id="detail-siswa" class="form-horizontal" action="{{ url('admin/data_induk_siswa/update_data_siswa') }}" method="post">
+                                        {{ csrf_field() }}
+                                        	<input type="hidden" name="id" id="id" value="{{$detail_siswa->id}}">
 			                                <div class="form-group"><label class="col-lg-2 control-label" >NIS</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="NIS" name="nis" value="{{$detail_siswa->nis}}" readonly="readonly" class="form-control"> 
+			                                    	<input type="text" placeholder="NIS" name="nis" value="{{$detail_siswa->nis}}" disabled="disabled" class="form-control"> 
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">NISN</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="NISN" name="nisn" value="{{$detail_siswa->nisn}}" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="NISN" name="nisn" value="{{$detail_siswa->nisn}}" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Nama Lengkap</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="nama_lengkap" value="{{$detail_siswa->nama_lengkap}}" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="nama_lengkap" value="{{$detail_siswa->nama_lengkap}}" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Nama Panggilan</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="nama_panggilan" value="{{$detail_siswa->nama_panggilan}}" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="nama_panggilan" value="{{$detail_siswa->nama_panggilan}}" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Gender</label>
 			                                    <div class="col-lg-10">
-			                                    	<label><input type="radio" value="L" id="gender" name="gender"> Laki-laki</label>
-													<label><input type="radio" value="P" id="gender" name="gender"> Perempuan</label>
+			                                    	<label><input type="radio" value="L" id="laki" name="gender" disabled="disabled"> Laki-laki</label>
+													<label><input type="radio" value="P" id="perempuan" name="gender" disabled="disabled"> Perempuan</label>
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label" >Tempat, tanggal lahir</label>
 			                                    <div class="col-lg-5">
-													<input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="{{$detail_siswa->tempat_lahir}}" readonly="readonly">
+													<input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="{{$detail_siswa->tempat_lahir}}" disabled="disabled">
 												</div>
 												<div class="col-lg-5">
-													<input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" value="{{$detail_siswa->tgl_lahir}}" readonly="readonly">
+													<input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" value="{{$detail_siswa->tgl_lahir}}" disabled="disabled">
 												</div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Agama</label>
 												<div class="col-lg-10">
-													<select name="agama" id="agama" class="form-control" readonly="readonly">
+													<select name="agama" id="agama" class="form-control" disabled="disabled">
 														<option value="">- Pilih Agama -</option>
 														<option value="Islam">Islam</option>
 														<option value="Kristen">Kristen</option>
@@ -125,42 +127,42 @@ SISFO | {{$atribut['title']}}
 													</select>
 												</div>
 											</div>
-											<div class="form-group"><label class="col-lg-2 control-label" readonly="readonly">Warga Negara</label>
+											<div class="form-group"><label class="col-lg-2 control-label" disabled="disabled">Warga Negara</label>
 												<div class="col-lg-10">
-													<label><input type="radio" value="WNI" id="warga_negara" name="warga_negara"> WNI</label>
-													<label><input type="radio" value="WNA" id="warga_negara" name="warga_negara"> WNA</label>
+													<label><input type="radio" value="WNI" id="wni" name="warga_negara" disabled="disabled"> WNI</label>
+													<label><input type="radio" value="WNA" id="wna" name="warga_negara" disabled="disabled"> WNA</label>
 												</div>
 											</div>
 											<div class="form-group"><label class="col-lg-2 control-label">Anak Ke</label>
 												<div class="col-lg-10">
-													<input type="text" class="form-control" id="anak_ke" name="anak_ke" readonly="readonly" value="{{$detail_siswa->anak_ke}}">
+													<input type="text" class="form-control" id="anak_ke" name="anak_ke" disabled="disabled" value="{{$detail_siswa->anak_ke}}">
 												</div>
 											</div>
 											<div class="form-group"><label class="col-lg-2 control-label">Jumlah Saudara</label>
 												<div class="col-lg-3">
-													<label>Kandung</label><input type="text" class="form-control" id="saudara_kandung" name="saudara_kandung" readonly="readonly" value="{{$detail_siswa->saudara_kandung}}">
+													<label>Kandung</label><input type="text" class="form-control" id="saudara_kandung" name="saudara_kandung" disabled="disabled" value="{{$detail_siswa->saudara_kandung}}">
 												</div>
 												<div class="col-lg-3">
-													<label>Tiri</label><input type="text" class="form-control" id="saudara_tiri" name="saudara_tiri" readonly="readonly" value="{{$detail_siswa->saudara_tiri}}">
+													<label>Tiri</label><input type="text" class="form-control" id="saudara_tiri" name="saudara_tiri" disabled="disabled" value="{{$detail_siswa->saudara_tiri}}">
 												</div>
 												<div class="col-lg-3">
-													<label>Angkat</label><input type="text" class="form-control" id="saudara_angkat" name="saudara_angkat" readonly="readonly" value="{{$detail_siswa->saudara_angkat}}">
+													<label>Angkat</label><input type="text" class="form-control" id="saudara_angkat" name="saudara_angkat" disabled="disabled" value="{{$detail_siswa->saudara_angkat}}">
 												</div>
 											</div>
 											<div class="form-group"><label class="col-lg-2 control-label">Status Anak</label>
 												<div class="col-lg-10">
-													<label><input type="radio" value="AK" id="status_anak" name="status_anak"> Anak Kandung</label>
-													<label><input type="radio" value="AT" id="status_anak" name="status_anak"> Anak Tiri</label>
+													<label><input type="radio" value="AK" id="ak" name="status_anak" disabled="disabled"> Anak Kandung</label>
+													<label><input type="radio" value="AT" id="at" name="status_anak" disabled="disabled"> Anak Tiri</label>
 												</div>
 											</div>
 											<div class="form-group"><label class="col-lg-2 control-label">Bahasa Sehari-hari</label>
 												<div class="col-lg-10">
-													<input type="text" class="form-control" id="bahasa" name="bahasa" value="{{$detail_siswa->bahasa}}" readonly="readonly">
+													<input type="text" class="form-control" id="bahasa" name="bahasa" value="{{$detail_siswa->bahasa}}" disabled="disabled">
 												</div>
 											</div>
-											<div class="form-group"><label class="col-lg-2 control-label">Status</label>
+											<div class="form-group"><label class="col-lg-2 control-label">Status Aktif</label>
 													<div class="col-lg-10">
-													<select name="status_aktif" id="status_aktif" class="form-control" >
+													<select name="status_aktif" id="status_aktif" class="form-control" disabled="disabled">
 														<option value="">- Pilih Status -</option>
 														<option value="Aktif">Aktif</option>
 														<option value="Keluar">Keluar</option>
@@ -170,61 +172,71 @@ SISFO | {{$atribut['title']}}
 												</div>
 											</div>
 			                                
-			                                
-			                                <div class="form-group">
-			                                    <div class="col-lg-offset-2 col-lg-10">
-			                                        <button class="btn btn-sm btn-white" type="submit">Sign in</button>
-			                                    </div>
+			                                <div id="submit-data">
+			                                	<div class="form-group">
+				                                    <div class="col-lg-offset-2 col-lg-10">
+				                                        <button type="submit" class="btn btn-outline btn-primary  dim" type="button"><i class="fa fa-save"></i> Save</button>
+				                                    </div>
+				                                </div>	
 			                                </div>
+			                                
 			                            </form>
 			                    </div>
 
                                 <div id="tab-2" class="tab-pane">
-                                    <form action="" class="form-horizontal">
+                                    <form id="detail-siswa" class="form-horizontal" action="{{ url('admin/data_induk_siswa/update_alamat') }}" method="post">
                                     	<div class="form-group"><label class="col-lg-2 control-label" >Alamat</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Alamat" name="alamat_lengkap" value="" readonly="readonly" class="form-control"> 
+			                                    	<input type="text" placeholder="Alamat" name="alamat_lengkap" value="" disabled="disabled" class="form-control"> 
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Provinsi</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="NISN" name="provinsi" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="NISN" name="provinsi" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Kota/Kabupaten</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="NISN" name="kota_kabupaten" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="NISN" name="kota_kabupaten" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Kecamatan</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="kecamatan" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="kecamatan" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Kelurahan</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="kelurahan" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="kelurahan" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">No. Telp</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="no_telp" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="no_telp" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Tinggal Dengan</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="tgl_dgn" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="tgl_dgn" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Alamat Kos</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="alamat_kos" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="alamat_kos" value="" disabled="disabled" class="form-control">
 			                                    </div>
 			                                </div>
 			                                <div class="form-group"><label class="col-lg-2 control-label">Sarana Transportasi</label>
 			                                    <div class="col-lg-10">
-			                                    	<input type="text" placeholder="Nama Lengkap" name="sarana_transportasi" value="" readonly="readonly" class="form-control">
+			                                    	<input type="text" placeholder="Nama Lengkap" name="sarana_transportasi" value="" disabled="disabled" class="form-control">
 			                                    </div>
+			                                </div>
+
+			                                <div id="submit-alamat">
+			                                	<div class="form-group">
+				                                    <div class="col-lg-offset-2 col-lg-10">
+				                                        <button class="btn btn-outline btn-primary  dim" id="unlock" type="button"><i class="fa fa-save"></i> Save</button>
+				                                    </div>
+				                                </div>	
 			                                </div>
                                     </form>
 
@@ -254,5 +266,113 @@ SISFO | {{$atribut['title']}}
                     </div>
 </div>
 <!-- /.box-body -->
+<script type="text/javascript">
+	$(document).ready(function (e) {
+		//set radio gender
+		gender = '<?php echo $detail_siswa->gender; ?>';
+		//alert(gender);
+		if (gender == 'L') {
+			$("#laki").attr('checked', 'checked');	
+		} else {
+			$("#perempuan").attr('checked', 'checked');
+		}
+
+		//set option status siswa
+		var agama = '<?php echo $detail_siswa->agama; ?>';
+		//alert(agama);
+		if (agama.length > 0) {
+			$('#agama').val(agama);
+		}
+
+		//set radio warga negara
+		warga_negara = '<?php echo $detail_siswa->warga_negara; ?>';
+		//alert(warga_negara);
+		if (warga_negara == 'WNI') {
+			$("#wni").attr('checked', 'checked');	
+		} else {
+			$("#wna").attr('checked', 'checked');
+		}
+
+		//set radio status anak
+		status_anak = '<?php echo $detail_siswa->status_anak; ?>';
+		//alert(status_anak);
+		if (status_anak == 'AK') {
+			$("#ak").attr('checked', 'checked');	
+		} else {
+			$("#at").attr('checked', 'checked');
+		}
+
+		//set option status siswa
+		var status_aktif = '<?php echo $detail_siswa->status_aktif; ?>';
+		//alert(status_aktif);
+		if (status_aktif.length > 0) {
+			$('#status_aktif').val(status_aktif);
+		}
+
+		//unlock form detail siswa
+		// $('#unlock').click(function(event) {
+		// 	//alert('hallo');
+		// 	/* Act on the event */
+		// 	event.preventDefault();
+		// 	$('.form-control').removeAttr('disabled');
+		// 	$( "form input:radio" ).removeAttr('disabled');
+		// });
+		
+		//hide submit data
+		// $('#submit-data').hide();
+		// $('#submit-alamat').hide();
+		// $('#unlock').click(function(event) {
+		// 	//alert('hallo');
+		// 	/* Act on the event */
+		// 	//event.preventDefault();
+		// 	if ($('.form-control').is('[disabled=disabled]')) {
+		// 		// $('.form-control').removeAttr('disabled');
+		// 		// $( "form input:radio" ).removeAttr('disabled');
+		// 		$("form :input").removeAttr('disabled');
+		// 		//$("#unlock").text('Lock');
+		// 		$("#unlock").find("span").removeClass('fa fa-unlock').addClass('fa fa-lock');
+		// 		$("#unlock").html('Lock');
+		// 		//removeClass('fa fa-unlock').addClass('fa fa-lock');
+				
+				
+				// $('#submit-data').show();
+				// $('#submit-alamat').show();
+		// 	} else {
+		// 		//$("#parent-selector :input").attr("disabled", true);
+		// 		$("form :input").attr('disabled',true);
+		// 		$("#unlock").text('Unlock');
+				// $('#submit-data').hide();
+				// $('#submit-alamat').hide();
+		// 	}
+		// });
+		$('#submit-data').hide();
+		$('#submit-alamat').hide();
+		$('#unlock').on('click', function () {
+			if ($('.form-control').is('[disabled=disabled]')) {
+				var $el = $(this),
+            	textNode = this.lastChild;
+		        $el.find('span').toggleClass('fa fa-lock fa fa-unlock');
+		        textNode.nodeValue = ($el.hasClass('unlock') ? ' Lock' : ' Unlock')
+		        $el.toggleClass('unlock');
+		        $("form :input").removeAttr('disabled');
+		        $('#submit-data').show();
+				$('#submit-alamat').show();
+			} else {
+				var $el = $(this),
+            	textNode = this.lastChild;
+		        $el.find('span').toggleClass('fa fa-lock fa fa-unlock');
+		        textNode.nodeValue = ($el.hasClass('unlock') ? ' Lock' : ' Unlock')
+		        $el.toggleClass('unlock');
+		        $("form :input").attr('disabled',true);
+		        $('#submit-data').hide();
+				$('#submit-alamat').hide();
+			}
+        
+    });
+
+		
+        
+    });
+</script>
 @endsection
 
